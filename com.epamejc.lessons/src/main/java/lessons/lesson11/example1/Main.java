@@ -1,4 +1,4 @@
-package lessons.lesson4;
+package lessons.lesson11.example1;
 
 public class Main {
 

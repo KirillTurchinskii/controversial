@@ -1,7 +1,6 @@
 package lessons.lesson4.static_example;
 
 import lessons.lesson4.static_example.utils.StringUtils;
-import static lessons.lesson4.static_example.utils.StringUtils.printMsg;
 
 public class Main {
 
@@ -12,8 +11,8 @@ public class Main {
         System.out.println(Cat.getCount());
 
         double sqrt = Math.sqrt(16);
-        printMsg(String.valueOf(sqrt));
-        printMsg(StringUtils.reverse("Hello"));
+        StringUtils.printMsg(String.valueOf(sqrt));
+        StringUtils.printMsg(StringUtils.reverse("Hello"));
     }
 
 }
