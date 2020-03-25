@@ -1,12 +1,11 @@
 package lessons.lesson13.example3;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.function.Predicate;
 
 public class Main {
-
+    
     public static void main(String[] args) {
         List<Integer> list = new ArrayList<>();
         list.add(1); // new Integer(1);
@@ -24,10 +23,11 @@ public class Main {
 //                iterator.remove();
 //            }
 //        }
-
+        
         Predicate<Integer> predicate = integer -> list.remove(integer);
         System.out.println(predicate.test(4));
         System.out.println(list);
-
+        
     }
+    
 }

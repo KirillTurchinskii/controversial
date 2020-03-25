@@ -1,7 +1,8 @@
 package lessons.lesson18.example10;
 
 public class Main {
-    public static void main(String args[]) {
+    
+    public static void main(String[] args) {
         NewThread ob1 = new NewThread("One");
         NewThread ob2 = new NewThread("Two");
         NewThread ob3 = new NewThread("Three");
@@ -21,19 +22,21 @@ public class Main {
         System.out.println("Thread Three is alive: " + ob3.t.isAlive()); // FALSE
         System.out.println("SemDemo thread exiting.");
     }
-
+    
 }
 
 class NewThread implements Runnable {
+    
     String name; // name of thread
     Thread t;
+    
     NewThread(String threadname) {
         name = threadname;
         t = new Thread(this, name);
         System.out.println("New thread: " + t);
         t.start(); // Start the thread
     }
-
+    
     public void run() {
         try {
             for (int i = 5; i > 0; i--) {
@@ -45,4 +48,5 @@ class NewThread implements Runnable {
         }
         System.out.println(name + " exiting.");
     }
+    
 }

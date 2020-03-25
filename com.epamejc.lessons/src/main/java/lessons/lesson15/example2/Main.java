@@ -5,10 +5,9 @@ import java.util.List;
 import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class Main {
-
+    
     public static void main(String[] args) {
         List<Integer> integers = new ArrayList<>();
         integers.add(1);
@@ -19,21 +18,23 @@ public class Main {
 
 //        map(Function<? super T, ? extends R> mapper)
         // return "Number: 4"
-
+        
         Function<Integer, String> function = new Function<Integer, String>() {
+            
             @Override
             public String apply(Integer integer) {
                 return "Number: " + integer;
             }
         };
-
+        
         Function<Integer, String> function2 = integer -> "Number: " + integer;
-
+        
         Set<String> set = integers.stream()
-                .map(integer -> "Number: " + integer)
-                .collect(Collectors.toSet());
-
+                                  .map(integer -> "Number: " + integer)
+                                  .collect(Collectors.toSet());
+        
         set.forEach(string -> System.out.println(string));
         set.forEach(System.out::println);
     }
+    
 }
