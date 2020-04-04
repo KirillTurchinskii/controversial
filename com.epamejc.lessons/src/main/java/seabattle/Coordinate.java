@@ -1,10 +1,8 @@
 package seabattle;
 
-import homeworks.InputReader;
-
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class Coordinate {
     
@@ -21,7 +19,7 @@ public class Coordinate {
     }
     
     private static Map<String, Integer> createMap() {
-        Map<String, Integer> map = new HashMap<>();
+        ConcurrentHashMap<String, Integer> map = new ConcurrentHashMap<>();
         map.put("a", 0);
         map.put("b", 1);
         map.put("c", 2);

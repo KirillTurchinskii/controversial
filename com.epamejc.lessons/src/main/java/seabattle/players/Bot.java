@@ -14,13 +14,12 @@ public class Bot extends Player {
     private Shot previousHit;
     private List<Coordinate> possibleVariants = new ArrayList<>();
     
-    public Bot() {
-    }
     
     @Override public void fieldFillStrategy() {
         super.fillListOfShipsRandomly();
     }
     
+    @Override
     public void turn(String s) {
         skip40rows();
         shotMethod();
@@ -104,7 +103,7 @@ public class Bot extends Player {
     
     private Coordinate getShotCoordinate() {
         Coordinate shotCoordinate;
-        if (possibleVariants.size() == 0) {
+        if (possibleVariants.isEmpty()) {
             do {
                 shotCoordinate = Coordinate.generateRandomCoordinate();
             } while (!Coordinate.isCoordinatesCorrect(shotCoordinate) || getOpponentsField().checkShotsCollision(

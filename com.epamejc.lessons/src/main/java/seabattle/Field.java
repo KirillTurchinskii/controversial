@@ -15,8 +15,6 @@ public class Field {
     public List<Shot> shots = new ArrayList<>();
     public Set<Miss> misses = new HashSet<>();
     
-    public Field() {
-    }
     
     public Set<Miss> getMisses() {
         return misses;
@@ -133,7 +131,7 @@ public class Field {
             addPossibleVariantsToList(firstX, firstY, firstCoordinate, possibleVariants, state, 0);
             addPossibleVariantsToList(firstX, firstY, firstCoordinate, possibleVariants, 0, state);
             addPossibleVariantsToList(firstX, firstY, firstCoordinate, possibleVariants, -state, 0);
-            if (possibleVariants.size() > 0) {
+            if (!possibleVariants.isEmpty()) {
                 Ship ship = selectRandomShip(firstCoordinate, possibleVariants);
                 ships.add(ship);
                 addAssistPointsAroundShip(ship);
