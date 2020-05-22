@@ -4,11 +4,11 @@ import seabattle.Coordinate;
 
 public class Assist {
     
-    private Coordinate assistPoint;
-    
-    public Assist(Coordinate assistPoint) {
-        this.assistPoint = assistPoint;
-    }
+    private final Coordinate assistPoint;
+
+  public Assist(final Coordinate assistPoint) {
+    this.assistPoint = assistPoint;
+  }
     
     public Coordinate getAssistPoint() {
         return assistPoint;
@@ -21,16 +21,16 @@ public class Assist {
         result = prime * result + assistPoint.getY();
         return result;
     }
-    
-    @Override public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        Assist assist = (Assist) o;
-        return getAssistPoint().equals(assist.getAssistPoint());
+
+  @Override public boolean equals(final Object o) {
+    if (this == o) {
+      return true;
     }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    final Assist assist = (Assist)o;
+    return getAssistPoint().equals(assist.getAssistPoint());
+  }
     
 }

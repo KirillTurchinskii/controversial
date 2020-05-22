@@ -1,26 +1,27 @@
 package seabattle;
 
-import homeworks.InputReader;
+import java.util.Locale;
+
 import seabattle.players.Bot;
 import seabattle.players.Player;
 
 public class BattleShipGame {
-    
-    private static void checkWinner(Player player1, Player player2) {
+
+    private static void checkWinner(final Player player1, final Player player2) {
         if (player1.getMyField().ships
-                    .size() == 0) {
+              .size() == 0) {
             System.out.println("Player 2 win!");
         }
         if (player2.getMyField().ships
-                    .size() == 0) {
+              .size() == 0) {
             System.out.println("Player 1 win!");
         }
     }
     
     private static Player chooseSecondPlayer() {
-        System.out.println("Choose second Player\n\'1\' BOT\nAny other key PERSON");
-        if ("1".equals(InputReader.nextString()
-                                  .toLowerCase())) {
+        System.out.println("Choose second Player\n'1' BOT\nAny other key PERSON");
+        if ("1".equals(InputReaderUtils.nextString()
+                                       .toLowerCase(Locale.ENGLISH))) {
             return new Bot();
         } else {
             return new Player();
@@ -28,10 +29,10 @@ public class BattleShipGame {
     }
     
     public void start() {
-        Player player1 = new Player();
+        final Player player1 = new Player();
         System.out.println("Player 1");
         player1.fieldFillStrategy();
-        Player player2 = chooseSecondPlayer();
+        final Player player2 = chooseSecondPlayer();
         System.out.println("Player2");
         player2.fieldFillStrategy();
         player1.setOpponentsFieldData(player2.getMyField());
@@ -44,8 +45,8 @@ public class BattleShipGame {
         run(player1, player2);
         checkWinner(player1, player2);
     }
-    
-    private void run(Player player1, Player player2) {
+
+    private void run(final Player player1, final Player player2) {
         while (isOneOfFieldsIsEmpty(player1, player2)) {
             player1.turn("Player one.");
             if (isOneOfFieldsIsEmpty(player1, player2)) {
@@ -53,11 +54,11 @@ public class BattleShipGame {
             }
         }
     }
-    
-    private boolean isOneOfFieldsIsEmpty(Player player1, Player player2) {
+
+    private boolean isOneOfFieldsIsEmpty(final Player player1, final Player player2) {
         return player1.getMyField().ships
-                       .size() > 0 && player2.getMyField().ships
-                                              .size() > 0;
+                 .size() > 0 && player2.getMyField().ships
+                                  .size() > 0;
     }
     
 }

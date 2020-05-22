@@ -4,14 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Ship {
-    
-    private Coordinate firstCoordinate;
-    private Coordinate secondCoordinate;
-    private List<Coordinate> shipParts;
+
+    private final Coordinate firstCoordinate;
+    private final Coordinate secondCoordinate;
+    private final List<Coordinate> shipParts;
     private int length;
-    private int direction;
-    
-    public Ship(Coordinate firstCoordinate, Coordinate secondCoordinate) {
+    private final int direction;
+
+    public Ship(final Coordinate firstCoordinate, final Coordinate secondCoordinate) {
         if (firstCoordinate.getX() > secondCoordinate.getX() || firstCoordinate.getY() > secondCoordinate.getY()) {
             this.firstCoordinate = secondCoordinate;
             this.secondCoordinate = firstCoordinate;
@@ -39,8 +39,8 @@ public class Ship {
     public int getLength() {
         return length;
     }
-    
-    public void setLength(int length) {
+
+    public void setLength(final int length) {
         this.length = length;
     }
     
@@ -65,7 +65,7 @@ public class Ship {
     }
     
     private List<Coordinate> fillShipPartsList() {
-        List<Coordinate> coordinates = new ArrayList<>();
+        final List<Coordinate> coordinates = new ArrayList<>();
         switch (direction) {
             case 0:
                 coordinates.add(firstCoordinate);
@@ -76,18 +76,20 @@ public class Ship {
             case 2:
                 fillVertically(coordinates);
                 break;
+            default:
+                System.out.println("Unexpected value: " + direction);
         }
     
         return coordinates;
     }
-    
-    private void fillHorizontally(List<Coordinate> coordinates) {
+
+    private void fillHorizontally(final List<Coordinate> coordinates) {
         for (int i = 0; i < length; i++) {
             coordinates.add(new Coordinate(firstCoordinate.getX() + i, firstCoordinate.getY()));
         }
     }
-    
-    private void fillVertically(List<Coordinate> coordinates) {
+
+    private void fillVertically(final List<Coordinate> coordinates) {
         for (int i = 0; i < length; i++) {
             coordinates.add(new Coordinate(firstCoordinate.getX(), firstCoordinate.getY() + i));
         }

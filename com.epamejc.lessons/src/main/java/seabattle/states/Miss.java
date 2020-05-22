@@ -4,11 +4,11 @@ import seabattle.Coordinate;
 
 public class Miss {
     
-    private Coordinate coordinate;
-    
-    public Miss(Coordinate coordinate) {
-        this.coordinate = coordinate;
-    }
+    private final Coordinate coordinate;
+
+  public Miss(final Coordinate coordinate) {
+    this.coordinate = coordinate;
+  }
     
     public Coordinate getCoordinate() {
         return coordinate;
@@ -21,16 +21,16 @@ public class Miss {
         result = prime * result + coordinate.getY();
         return result;
     }
-    
-    @Override public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        Miss miss = (Miss) o;
-        return getCoordinate().equals(miss.getCoordinate());
+
+  @Override public boolean equals(final Object o) {
+    if (this == o) {
+      return true;
     }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    final Miss miss = (Miss)o;
+    return getCoordinate().equals(miss.getCoordinate());
+  }
     
 }

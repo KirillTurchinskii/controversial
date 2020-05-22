@@ -1,13 +1,13 @@
 package seabattle.players;
 
-import seabattle.Coordinate;
-import seabattle.Ship;
-import seabattle.states.Shot;
-
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
+
+import seabattle.Coordinate;
+import seabattle.Ship;
+import seabattle.states.Shot;
 
 public class Bot extends Player {
     
@@ -18,9 +18,9 @@ public class Bot extends Player {
     @Override public void fieldFillStrategy() {
         super.fillListOfShipsRandomly();
     }
-    
+
     @Override
-    public void turn(String s) {
+    public void turn(final String s) {
         skip40rows();
         shotMethod();
     }
@@ -32,23 +32,23 @@ public class Bot extends Player {
         view.printField(opponentsField);
         shotWhileHit();
     }
-    
+
     @Override
     protected int iterateShipParts(
-            Coordinate shotCoordinate, Iterator shipIterator, Ship ship, Iterator shipPartsIterator) {
+      final Coordinate shotCoordinate, final Iterator shipIterator, final Ship ship, final Iterator shipPartsIterator) {
         while (shipPartsIterator.hasNext()) {
-            Coordinate shipCoordinate = (Coordinate) shipPartsIterator.next();
+            final Coordinate shipCoordinate = (Coordinate)shipPartsIterator.next();
             if (shotCoordinate.equals(shipCoordinate)) {
                 return hitOrKill(shotCoordinate, shipIterator, ship, shipPartsIterator, shipCoordinate);
             }
         }
         return 0;
     }
-    
+
     @Override
     protected int hitOrKill(
-            Coordinate shotCoordinate, Iterator shipIterator, Ship ship, Iterator shipPartsIterator,
-            Coordinate shipCoordinate) {
+      final Coordinate shotCoordinate, final Iterator shipIterator, final Ship ship, final Iterator shipPartsIterator,
+      final Coordinate shipCoordinate) {
         if (ship.getShipParts().size() > 1) {
             hit(shotCoordinate, shipPartsIterator);
             return 1;
@@ -64,7 +64,7 @@ public class Bot extends Player {
         int fireResult = -1;
         while (fireResult != 0 && getOpponentsFieldData().ships.size() > 0 && getMyField().ships.size() > 0) {
             shotCoordinate = getShotCoordinate();
-            Shot shot = new Shot(shotCoordinate);
+            final Shot shot = new Shot(shotCoordinate);
             getOpponentsField().shots.add(shot);
             possibleVariants.remove(shotCoordinate);
             fireResult = takeAShot(getOpponentsFieldData(), shotCoordinate);
@@ -78,11 +78,11 @@ public class Bot extends Player {
             }
         }
     }
-    
+
     @Override
     protected void kill(
-            Coordinate shotCoordinate, Iterator shipIterator, Ship ship, Iterator shipPartsIterator,
-            Coordinate shipCoordinate) {
+      final Coordinate shotCoordinate, final Iterator shipIterator, final Ship ship, final Iterator shipPartsIterator,
+      final Coordinate shipCoordinate) {
         System.out.println("kill");
         shipPartsIterator.remove();
         getOpponentsField().addAssistPointsAroundKill(shotCoordinate, ship);
@@ -90,13 +90,13 @@ public class Bot extends Player {
         opponentsFieldData.getShots().add(new Shot(shipCoordinate));
         possibleVariants = new ArrayList<>();
     }
-    
+
     @Override
-    protected void hit(Coordinate shotCoordinate, Iterator shipPartsIterator) {
+    protected void hit(final Coordinate shotCoordinate, final Iterator shipPartsIterator) {
         shipPartsIterator.remove();
         System.out.println("hit");
         getOpponentsField().addAssistPointsAroundShot(shotCoordinate);
-        Shot shot = new Shot(shotCoordinate);
+        final Shot shot = new Shot(shotCoordinate);
         getOpponentsFieldData().shots.add(shot);
         removeRedundantPossibleVariants(shotCoordinate, shot);
     }
@@ -113,16 +113,19 @@ public class Bot extends Player {
         }
         return shotCoordinate;
     }
-    
-    private void removeRedundantPossibleVariants(Coordinate shotCoordinate, Shot shot) {
+
+    private void removeRedundantPossibleVariants(final Coordinate shotCoordinate, final Shot shot) {
         if (possibleVariants.size() > 1 && isNearPrevious(shot)) {
-            Ship hypotheticalShip = new Ship(shotCoordinate, previousHit.getCoordinate());
+            final Ship hypotheticalShip = new Ship(shotCoordinate, previousHit.getCoordinate());
             switch (hypotheticalShip.getDirection()) {
                 case 1:
                     removePossibleVerticalPoints();
                     break;
                 case 2:
                     removePossibleHorizontalPoints();
+                    break;
+                default:
+                    System.out.println("Unexpected value: " + hypotheticalShip.getDirection());
                     break;
             }
         }
@@ -133,9 +136,9 @@ public class Bot extends Player {
     }
     
     private void removePossibleVerticalPoints() {
-        Iterator possibleVariantsIterator = getPossibleVariants().iterator();
+        final Iterator possibleVariantsIterator = getPossibleVariants().iterator();
         while (possibleVariantsIterator.hasNext()) {
-            Coordinate coordinate = (Coordinate) possibleVariantsIterator.next();
+            final Coordinate coordinate = (Coordinate)possibleVariantsIterator.next();
             if (coordinate.getY() > previousHit.getCoordinate().getY() ||
                 coordinate.getY() < previousHit.getCoordinate().getY()) {
                 possibleVariantsIterator.remove();
@@ -144,33 +147,33 @@ public class Bot extends Player {
     }
     
     private void removePossibleHorizontalPoints() {
-        Iterator possibleVariantsIterator = getPossibleVariants().iterator();
+        final Iterator possibleVariantsIterator = getPossibleVariants().iterator();
         while (possibleVariantsIterator.hasNext()) {
-            Coordinate coordinate = (Coordinate) possibleVariantsIterator.next();
+            final Coordinate coordinate = (Coordinate)possibleVariantsIterator.next();
             if (coordinate.getX() > previousHit.getCoordinate().getX() ||
                 coordinate.getX() < previousHit.getCoordinate().getX()) {
                 possibleVariantsIterator.remove();
             }
         }
     }
-    
-    private boolean isNearPrevious(Shot shot) {
-        return (Math.abs(previousHit.getCoordinate().getX() - shot.getCoordinate().getX()) < 2 && Math.abs(
-                previousHit.getCoordinate().getY() - shot.getCoordinate().getY()) < 2);
+
+    private boolean isNearPrevious(final Shot shot) {
+        return Math.abs(previousHit.getCoordinate().getX() - shot.getCoordinate().getX()) < 2 && Math.abs(
+          previousHit.getCoordinate().getY() - shot.getCoordinate().getY()) < 2;
     }
-    
-    private void addPossibleVariantsOfShots(Coordinate shotCoordinate) {
+
+    private void addPossibleVariantsOfShots(final Coordinate shotCoordinate) {
         addPossibleVariants(shotCoordinate, 0, -1);
         addPossibleVariants(shotCoordinate, 1, 0);
         addPossibleVariants(shotCoordinate, 0, 1);
         addPossibleVariants(shotCoordinate, -1, 0);
     }
-    
-    private void addPossibleVariants(Coordinate shotCoordinate, int addToX, int addToY) {
+
+    private void addPossibleVariants(final Coordinate shotCoordinate, final int addToX, final int addToY) {
         Coordinate possibleCoordinate;
         possibleCoordinate = new Coordinate(shotCoordinate.getX() + addToX, shotCoordinate.getY() + addToY);
         if (Coordinate.isCoordinatesCorrect(possibleCoordinate) && !getOpponentsField().checkShotsCollision(
-                possibleCoordinate)) {
+          possibleCoordinate)) {
             possibleVariants.add(possibleCoordinate);
         }
     }

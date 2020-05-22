@@ -9,9 +9,9 @@ public enum GameObjectView {
     IMPOSSIBLE("▪"),
     EMPTY("☐");
     
-    private String state;
-    
-    GameObjectView(String state) {
+    private final String state;
+
+    GameObjectView(final String state) {
         this.state = state;
     }
     
