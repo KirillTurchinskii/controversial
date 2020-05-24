@@ -2,10 +2,7 @@ package seabattle;
 
 public class Main {
 
-    private Main() {
-    }
-
-    public static void main(String[] args) {//NOPMD
+    public static void main(String[] args) {
         final BattleShipGame battleShipGame = new BattleShipGame();
         battleShipGame.start();
     }

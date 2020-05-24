@@ -78,6 +78,7 @@ public class Ship {
                 break;
             default:
                 System.out.println("Unexpected value: " + direction);
+                break;
         }
     
         return coordinates;
