@@ -2,13 +2,14 @@ package seabattle;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Ship {
 
     private final Coordinate firstCoordinate;
     private final Coordinate secondCoordinate;
     private final List<Coordinate> shipParts;
-    private int length;
+    private final int length;
     private final int direction;
 
     public Ship(final Coordinate firstCoordinate, final Coordinate secondCoordinate) {
@@ -35,25 +36,40 @@ public class Ship {
     public List<Coordinate> getShipParts() {
         return shipParts;
     }
-    
+
     public int getLength() {
         return length;
     }
 
-    public void setLength(final int length) {
-        this.length = length;
-    }
-    
     public int getDirection() {
         return this.direction;
     }
-    
+
+    @Override public int hashCode() {
+        return Objects.hash(getFirstCoordinate(), getSecondCoordinate(), getShipParts(), getLength(), getDirection());
+    }
+
+    @Override public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Ship ship = (Ship)o;
+        return getLength() == ship.getLength() &&
+               getDirection() == ship.getDirection() &&
+               getFirstCoordinate().equals(ship.getFirstCoordinate()) &&
+               getSecondCoordinate().equals(ship.getSecondCoordinate()) &&
+               Objects.equals(getShipParts(), ship.getShipParts());
+    }
+
     private int calculateLength() {
         return (firstCoordinate.getX() == secondCoordinate.getX() ?
                 Math.abs(firstCoordinate.getY() - secondCoordinate.getY()) :
                 Math.abs(firstCoordinate.getX() - secondCoordinate.getX())) + 1;
     }
-    
+
     private int calculateDirection() {
         if (firstCoordinate.getY() - secondCoordinate.getY() < 0) {
             return 2;

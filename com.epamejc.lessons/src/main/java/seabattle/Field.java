@@ -141,11 +141,11 @@ public class Field {
     }
   }
 
-  public long getCountByLength(final int length) {
-    return ships.stream()
-                .map(Ship::getLength)
-                .filter(integer -> integer == length)
-                .count();
+  public int getCountByLength(final int length) {
+    return (int)ships.stream()
+                     .map(Ship::getLength)
+                     .filter(integer -> integer == length)
+                     .count();
   }
 
   private void addToLowerRight(final Coordinate coordinate) {

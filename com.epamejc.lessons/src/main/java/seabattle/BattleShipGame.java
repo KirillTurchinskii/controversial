@@ -46,6 +46,24 @@ public class BattleShipGame {
         checkWinner(player1, player2);
     }
 
+    public void startBotPlay() {
+        final Player player1 = new Bot();
+        System.out.println("Player 1");
+        player1.fieldFillStrategy();
+        final Player player2 = new Bot();
+        System.out.println("Player2");
+        player2.fieldFillStrategy();
+        player1.setOpponentsFieldData(player2.getMyField());
+        player2.setOpponentsFieldData(player1.getMyField());
+        System.out.println("My");
+        player1.getView().printField(player1.getMyField());
+        System.out.println("Opo");
+        player1.getView().printField(player1.getOpponentsFieldData());
+        player1.getView().printField(player1.getOpponentsField());
+        run(player1, player2);
+        checkWinner(player1, player2);
+    }
+
     private void run(final Player player1, final Player player2) {
         while (isOneOfFieldsIsEmpty(player1, player2)) {
             player1.turn("Player one.");

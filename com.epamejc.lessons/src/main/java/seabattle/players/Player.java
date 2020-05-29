@@ -176,7 +176,7 @@ public class Player {
     Coordinate shotCoordinate;
     do {
       System.out.println("Input correct shot coordinate and don't shoot twice at same point");
-      shotCoordinate = new Coordinate().input();
+      shotCoordinate = new Coordinate().input(System.in);
     } while (!Coordinate.isCoordinatesCorrect(shotCoordinate) || opponentsField.checkShotsCollision(
       shotCoordinate));
     return shotCoordinate;
@@ -207,8 +207,8 @@ public class Player {
     while (myField.shots
              .size() != 10) {
       myField.printState();
-      first = new Coordinate().input();
-      second = new Coordinate().input();
+      first = new Coordinate().input(System.in);
+      second = new Coordinate().input(System.in);
       if (Coordinate.isCoordinatesCorrect(first, second)) {
         final Ship ship = new Ship(first, second);
         addCorrectShip(ship);
