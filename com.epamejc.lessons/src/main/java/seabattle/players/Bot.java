@@ -118,10 +118,10 @@ public class Bot extends Player {
         if (possibleVariants.size() > 1 && isNearPrevious(shot)) {
             final Ship hypotheticalShip = new Ship(shotCoordinate, previousHit.getCoordinate());
             switch (hypotheticalShip.getDirection()) {
-                case 1:
+                case HORIZONTAL:
                     removePossibleVerticalPoints();
                     break;
-                case 2:
+                case VERTICAL:
                     removePossibleHorizontalPoints();
                     break;
                 default:

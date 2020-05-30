@@ -10,10 +10,17 @@ import seabattle.states.Shot;
 
 public class Field {
 
-  public List<Ship> ships = new ArrayList<>(10);
-  public Set<Assist> assistSet = new HashSet<>();
-  public List<Shot> shots = new ArrayList<>();
-  public Set<Miss> misses = new HashSet<>();
+  public List<Ship> ships;
+  public Set<Assist> assistSet;
+  public List<Shot> shots;
+  public Set<Miss> misses;
+
+  public Field() {
+    ships = new ArrayList<>(10);
+    assistSet = new HashSet<>();
+    shots = new ArrayList<>();
+    misses = new HashSet<>();
+  }
 
   public Set<Miss> getMisses() {
     return misses;
@@ -53,14 +60,14 @@ public class Field {
     final Coordinate firstCoordinate = ship.getFirstCoordinate();
     final Coordinate secondCoordinate = ship.getSecondCoordinate();
     switch (ship.getDirection()) {
-      case 0:
+      case ONE_CELL:
         addAssistPointOnXAxis(firstCoordinate, secondCoordinate);
         addAssistPointOnYAxis(firstCoordinate, secondCoordinate);
         break;
-      case 1:
+      case HORIZONTAL:
         addAssistPointOnXAxis(firstCoordinate, secondCoordinate);
         break;
-      case 2:
+      case VERTICAL:
         addAssistPointOnYAxis(firstCoordinate, secondCoordinate);
         break;
       default:
@@ -97,23 +104,29 @@ public class Field {
   }
 
   public boolean checkCorrectAmountOfShips(final Ship ship) {
+    boolean result;
     switch (ship.getLength()) {
       case 1:
-        return getCountByLength(1) < 4;
+        result = getCountByLength(1) < 4;
+        break;
       case 2:
-        return getCountByLength(2) < 3;
+        result = getCountByLength(2) < 3;
+        break;
       case 3:
-        return getCountByLength(3) < 2;
+        result = getCountByLength(3) < 2;
+        break;
       case 4:
-        return getCountByLength(4) < 1;
+        result = getCountByLength(4) < 1;
+        break;
       default:
         return false;
     }
+    return result;
   }
 
   public void printState() {
-    System.out.printf("There are %s ship(s) on a filed.\n%s Battleship (length of 4)\n%s Cruiser (length of 3)" +
-                      "\n%s Destroyer (length of 2)\n%s Torpedo boat (length of 1)\n\n", ships.size(),
+    System.out.printf("There are %s ship(s) on a filed.%n%s Battleship (length of 4)%n%s Cruiser (length of 3)" +
+                      "%n%s Destroyer (length of 2)%n%s Torpedo boat (length of 1)%n%n", ships.size(),
                       getCountByLength(4),
                       getCountByLength(3),
                       getCountByLength(2),
@@ -226,8 +239,8 @@ public class Field {
     }
   }
 
-  private void addAssistPoint(final int i, final int i2) {
-    final Coordinate coordinate1 = new Coordinate(i, i2);
+  private void addAssistPoint(final int xValue, final int yValue) {
+    final Coordinate coordinate1 = new Coordinate(xValue, yValue);
     if (Coordinate.isCoordinatesCorrect(coordinate1)) {
       final Assist assist1 = new Assist(coordinate1);
       assistSet.add(assist1);

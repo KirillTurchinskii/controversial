@@ -4,13 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import seabattle.states.Direction;
+
 public class Ship {
 
     private final Coordinate firstCoordinate;
     private final Coordinate secondCoordinate;
     private final List<Coordinate> shipParts;
     private final int length;
-    private final int direction;
+    private final Direction direction;
 
     public Ship(final Coordinate firstCoordinate, final Coordinate secondCoordinate) {
         if (firstCoordinate.getX() > secondCoordinate.getX() || firstCoordinate.getY() > secondCoordinate.getY()) {
@@ -41,7 +43,7 @@ public class Ship {
         return length;
     }
 
-    public int getDirection() {
+    public Direction getDirection() {
         return this.direction;
     }
 
@@ -70,26 +72,26 @@ public class Ship {
                 Math.abs(firstCoordinate.getX() - secondCoordinate.getX())) + 1;
     }
 
-    private int calculateDirection() {
+    private Direction calculateDirection() {
         if (firstCoordinate.getY() - secondCoordinate.getY() < 0) {
-            return 2;
+            return Direction.VERTICAL;
         }
         if (firstCoordinate.getX() - secondCoordinate.getX() < 0) {
-            return 1;
+            return Direction.HORIZONTAL;
         }
-        return 0;
+        return Direction.ONE_CELL;
     }
     
     private List<Coordinate> fillShipPartsList() {
         final List<Coordinate> coordinates = new ArrayList<>();
         switch (direction) {
-            case 0:
+            case ONE_CELL:
                 coordinates.add(firstCoordinate);
                 break;
-            case 1:
+            case HORIZONTAL:
                 fillHorizontally(coordinates);
                 break;
-            case 2:
+            case VERTICAL:
                 fillVertically(coordinates);
                 break;
             default:

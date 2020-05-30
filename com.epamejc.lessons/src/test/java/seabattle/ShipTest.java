@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.junit.Test;
 
+import seabattle.states.Direction;
+
 import static org.junit.Assert.assertEquals;
 
 public class ShipTest {
@@ -62,18 +64,20 @@ public class ShipTest {
     Coordinate first = new Coordinate(3, 5);
     Coordinate second = new Coordinate(5, 5);
     Ship ship = new Ship(first, second);
-    int expected = 1;
-    int actual = ship.getDirection();
+    Direction expected = Direction.HORIZONTAL;
+    Direction actual = ship.getDirection();
     assertEquals(expected, actual);
   }
+  //1 - Hor
+  //2 - Ver
 
   @Test
   public void getVerticalDirection() {
     Coordinate first = new Coordinate(3, 5);
     Coordinate second = new Coordinate(3, 7);
     Ship ship = new Ship(first, second);
-    int expected = 2;
-    int actual = ship.getDirection();
+    Direction expected = Direction.VERTICAL;
+    Direction actual = ship.getDirection();
     assertEquals(expected, actual);
   }
 
@@ -82,8 +86,8 @@ public class ShipTest {
     Coordinate first = new Coordinate(3, 5);
     Coordinate second = new Coordinate(3, 5);
     Ship ship = new Ship(first, second);
-    int expected = 0;
-    int actual = ship.getDirection();
+    Direction expected = Direction.ONE_CELL;
+    Direction actual = ship.getDirection();
     assertEquals(expected, actual);
   }
 
