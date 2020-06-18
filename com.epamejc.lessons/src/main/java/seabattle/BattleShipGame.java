@@ -4,6 +4,7 @@ import java.util.Locale;
 
 import seabattle.players.Bot;
 import seabattle.players.Player;
+import utils.InputReaderUtils;
 
 public class BattleShipGame {
 

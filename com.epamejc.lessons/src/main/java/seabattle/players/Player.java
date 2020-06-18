@@ -5,11 +5,11 @@ import java.util.Locale;
 
 import seabattle.Coordinate;
 import seabattle.Field;
-import seabattle.InputReaderUtils;
 import seabattle.Ship;
 import seabattle.states.Miss;
 import seabattle.states.Shot;
 import seabattle.view.View;
+import utils.InputReaderUtils;
 
 public class Player {
 
